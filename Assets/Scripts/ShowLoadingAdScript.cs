@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 // Example script showing how to invoke the Google Mobile Ads Unity plugin.
 public class ShowLoadingAdScript : MonoBehaviour
 {
-    private BannerView bannerView;
     private InterstitialAd interstitial;
     private float deltaTime = 0.0f;
     private static string outputMessage = string.Empty;
@@ -21,9 +20,9 @@ public class ShowLoadingAdScript : MonoBehaviour
     {
 
 #if UNITY_ANDROID
-        string appId = "ca-app-pub-3940256099942544~3347511713";
+        string appId = "ca-app-pub-4472054890564612~9408933086";
 #elif UNITY_IPHONE
-        string appId = "ca-app-pub-3940256099942544~1458002511";
+        string appId = "ca-app-pub-4472054890564612~9408933086";
 #else
         string appId = "unexpected_platform";
 #endif
@@ -62,48 +61,15 @@ public class ShowLoadingAdScript : MonoBehaviour
             .Build();
     }
     
-    private void RequestBanner()
-    {
-        // These ad units are configured to always serve test ads.
-#if UNITY_EDITOR
-        string adUnitId = "unused";
-#elif UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/2934735716";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-
-        // Clean up banner ad before creating a new one.
-        if (this.bannerView != null)
-        {
-            this.bannerView.Destroy();
-        }
-
-        // Create a 320x50 banner at the top of the screen.
-        this.bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Top);
-
-        // Register for ad events.
-        this.bannerView.OnAdLoaded += this.HandleAdLoaded;
-        this.bannerView.OnAdFailedToLoad += this.HandleAdFailedToLoad;
-        this.bannerView.OnAdOpening += this.HandleAdOpened;
-        this.bannerView.OnAdClosed += this.HandleAdClosed;
-        this.bannerView.OnAdLeavingApplication += this.HandleAdLeftApplication;
-
-        // Load a banner ad.
-        this.bannerView.LoadAd(this.CreateAdRequest());
-    }
-
     private void RequestInterstitial()
     {
         // These ad units are configured to always serve test ads.
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+        string adUnitId = "ca-app-pub-4472054890564612/5905866680";
 #elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+        string adUnitId = "ca-app-pub-4472054890564612/5905866680";
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -133,55 +99,20 @@ public class ShowLoadingAdScript : MonoBehaviour
         if (this.interstitial.IsLoaded())
         {
             this.interstitial.Show();
+            LoadSceneManager.GoToNewbie();
         }
         else
         {
             MonoBehaviour.print("Interstitial is not ready yet");
         }
     }
-
-   /* public void HandleOnAdClosed(object sender, EventArgs args)
-    {
-        interstitial.Destroy();
-    }*/
-
-    #region Banner callback handlers
-
-    public void HandleAdLoaded(object sender, EventArgs args)
-    {
-        //isAdLoaded = true;
-        //Debug.Log("the value of isAdLoaded is: " + isAdLoaded);
-        MonoBehaviour.print("HandleAdLoaded event received");
-    }
-
-    public void HandleAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
-    {
-        MonoBehaviour.print("HandleFailedToReceiveAd event received with message: " + args.Message);
-    }
-
-    public void HandleAdOpened(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleAdOpened event received");
-    }
-
-    public void HandleAdClosed(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleAdClosed event received");
-    }
-
-    public void HandleAdLeftApplication(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleAdLeftApplication event received");
-    }
-
-    #endregion
-
+    
     #region Interstitial callback handlers
 
     public void HandleInterstitialLoaded(object sender, EventArgs args)
     {
-        //isAdDisplayed = false;
-        //Debug.Log("Ad loaded");
+        ShowInterstitial();
+        //LoadSceneManager.GoToNewbie();
         MonoBehaviour.print("HandleInterstitialLoaded event received");
     }
 

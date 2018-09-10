@@ -21,15 +21,11 @@ public class LoadSceneManager : MonoBehaviour {
         SceneManager.LoadScene(2);
     }
 
-    public void GoToNewbie()
+    public static void GoToNewbie()
     {
         SceneManager.LoadScene(3);
     }
-
-    /*public void GoToEleet()
-    {
-        SceneManager.LoadScene(3);
-    }*/
+    
 
     public void FeatureOnMEA() 
     {
