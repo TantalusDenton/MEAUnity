@@ -16,9 +16,14 @@ public class LoadSceneManager : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void GoToNewbie()
+    public void GoToLoadingScreen()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void GoToNewbie()
+    {
+        SceneManager.LoadScene(3);
     }
 
     /*public void GoToEleet()

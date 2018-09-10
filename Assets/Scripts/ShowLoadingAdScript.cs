@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using GoogleMobileAds.Api;
+using UnityEngine.SceneManagement;
 
 // Example script showing how to invoke the Google Mobile Ads Unity plugin.
-public class GoogleMobileAdsDemoScript : MonoBehaviour
+public class ShowLoadingAdScript : MonoBehaviour
 {
     private BannerView bannerView;
     private InterstitialAd interstitial;
@@ -46,92 +48,15 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
         ShowInterstitial();
     }
 
-    /*public void OnGUI()
-    {
-        GUIStyle style = new GUIStyle();
-
-        Rect rect = new Rect(0, 0, Screen.width, Screen.height);
-        style.alignment = TextAnchor.LowerRight;
-        style.fontSize = (int)(Screen.height * 0.06);
-        style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
-        float fps = 1.0f / this.deltaTime;
-        string text = string.Format("{0:0.} fps", fps);
-        GUI.Label(rect, text, style);
-
-        // Puts some basic buttons onto the screen.
-        GUI.skin.button.fontSize = (int)(0.035f * Screen.width);
-        float buttonWidth = 0.35f * Screen.width;
-        float buttonHeight = 0.15f * Screen.height;
-        float columnOnePosition = 0.1f * Screen.width;
-        float columnTwoPosition = 0.55f * Screen.width;
-
-        Rect requestBannerRect = new Rect(
-            columnOnePosition,
-            0.05f * Screen.height,
-            buttonWidth,
-            buttonHeight);
-        if (GUI.Button(requestBannerRect, "Request\nBanner"))
-        {
-            this.RequestBanner();
-        }
-
-        Rect destroyBannerRect = new Rect(
-            columnOnePosition,
-            0.225f * Screen.height,
-            buttonWidth,
-            buttonHeight);
-        if (GUI.Button(destroyBannerRect, "Destroy\nBanner"))
-        {
-            this.bannerView.Destroy();
-        }
-
-        Rect requestInterstitialRect = new Rect(
-            columnOnePosition,
-            0.4f * Screen.height,
-            buttonWidth,
-            buttonHeight);
-        if (GUI.Button(requestInterstitialRect, "Request\nInterstitial"))
-        {
-            this.RequestInterstitial();
-        }
-
-        Rect showInterstitialRect = new Rect(
-            columnOnePosition,
-            0.575f * Screen.height,
-            buttonWidth,
-            buttonHeight);
-        if (GUI.Button(showInterstitialRect, "Show\nInterstitial"))
-        {
-            this.ShowInterstitial();
-        }
-
-        Rect destroyInterstitialRect = new Rect(
-            columnOnePosition,
-            0.75f * Screen.height,
-            buttonWidth,
-            buttonHeight);
-        if (GUI.Button(destroyInterstitialRect, "Destroy\nInterstitial"))
-        {
-            this.interstitial.Destroy();
-        }
-
-        Rect textOutputRect = new Rect(
-            columnTwoPosition,
-            0.925f * Screen.height,
-            buttonWidth,
-            0.05f * Screen.height);
-        GUI.Label(textOutputRect, outputMessage);
-    }
-    */
     // Returns an ad request with custom ad targeting.
     private AdRequest CreateAdRequest()
     {
         return new AdRequest.Builder()
             .AddTestDevice(AdRequest.TestDeviceSimulator)
-            .AddTestDevice("0123456789ABCDEF0123456789ABCDEF")
+            .AddTestDevice("353626073217213")
             .AddKeyword("game")
             .SetGender(Gender.Male)
-            .SetBirthday(new DateTime(1985, 1, 1))
+            .SetBirthday(new DateTime(1991, 1, 1))
             .TagForChildDirectedTreatment(false)
             .AddExtra("color_bg", "9B30FF")
             .Build();
@@ -224,6 +149,8 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
 
     public void HandleAdLoaded(object sender, EventArgs args)
     {
+        //isAdLoaded = true;
+        //Debug.Log("the value of isAdLoaded is: " + isAdLoaded);
         MonoBehaviour.print("HandleAdLoaded event received");
     }
 
@@ -253,6 +180,8 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
 
     public void HandleInterstitialLoaded(object sender, EventArgs args)
     {
+        //isAdDisplayed = false;
+        //Debug.Log("Ad loaded");
         MonoBehaviour.print("HandleInterstitialLoaded event received");
     }
 
@@ -269,6 +198,8 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
 
     public void HandleInterstitialClosed(object sender, EventArgs args)
     {
+        Debug.Log("Ad closed, destroying");
+        interstitial.Destroy();
         MonoBehaviour.print("HandleInterstitialClosed event received");
     }
 
