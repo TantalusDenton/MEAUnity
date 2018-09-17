@@ -8,24 +8,23 @@ public class LoadSceneManager : MonoBehaviour {
     // Use this for initialization
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void GoToTermsOfUse()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void GoToLoadingScreen()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public static void GoToNewbie()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
-    
 
     public void FeatureOnMEA() 
     {

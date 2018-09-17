@@ -18,20 +18,6 @@ public class ShowLoadingAdScript : MonoBehaviour
 
     public void Start()
     {
-
-#if UNITY_ANDROID
-        string appId = "ca-app-pub-4472054890564612~9408933086";
-#elif UNITY_IPHONE
-        string appId = "ca-app-pub-4472054890564612~9408933086";
-#else
-        string appId = "unexpected_platform";
-#endif
-
-        MobileAds.SetiOSAppPauseOnBackground(true);
-
-        // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(appId);
-
         RequestInterstitial();
     }
 
@@ -51,12 +37,6 @@ public class ShowLoadingAdScript : MonoBehaviour
     private AdRequest CreateAdRequest()
     {
         return new AdRequest.Builder()
-            .AddTestDevice(AdRequest.TestDeviceSimulator)
-            .AddTestDevice("353626073217213")
-            .AddKeyword("game")
-            .SetGender(Gender.Male)
-            .SetBirthday(new DateTime(1991, 1, 1))
-            .TagForChildDirectedTreatment(false)
             .AddExtra("color_bg", "9B30FF")
             .Build();
     }
@@ -112,7 +92,6 @@ public class ShowLoadingAdScript : MonoBehaviour
     public void HandleInterstitialLoaded(object sender, EventArgs args)
     {
         ShowInterstitial();
-        //LoadSceneManager.GoToNewbie();
         MonoBehaviour.print("HandleInterstitialLoaded event received");
     }
 
